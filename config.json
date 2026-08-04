@@ -28,8 +28,7 @@
 
         "wsSettings": {
 
-          "path": "/ws?collectConsent?sessionId=3_cc-session_efb0bceb-56a6-42ca-8acb-403fa7d8933a
-"
+          "path": "/ws?collectConsent?sessionId=3_cc-session_efb0bceb-56a6-42ca-8acb-403fa7d8933a"
 
         }
       }
@@ -60,8 +59,7 @@
 
         "xhttpSettings": {
 
-          "path": "/xhttp?collectConsent?sessionId=3_cc-session_efb0bceb-56a6-42ca-8acb-403fa7d8933a
-"
+          "path": "/xhttp?collectConsent?sessionId=3_cc-session_efb0bceb-56a6-42ca-8acb-403fa7d8933a"
 
         }
       }
