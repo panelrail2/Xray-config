@@ -1,28 +1,61 @@
 FROM ubuntu:24.04
 
+
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
 
-RUN apt update && apt install -y \
-    curl \
-    wget \
-    unzip \
-    ca-certificates \
-    nano
 
-RUN mkdir -p /usr/local/bin
+RUN apt-get update && 
 
-RUN wget -O /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
-    unzip /tmp/xray.zip -d /tmp/xray && \
-    mv /tmp/xray/xray /usr/local/bin/xray && \
-    chmod +x /usr/local/bin/xray && \
-    rm -rf /tmp/xray /tmp/xray.zip
+apt-get install -y --no-install-recommends 
 
-COPY config.json /etc/xray/config.json
+curl 
 
-COPY start.sh /start.sh
+ca-certificates 
 
-RUN chmod +x /start.sh
+nano 
+
+procps 
+
+iproute2 && 
+
+apt-get clean && 
+
+rm -rf /var/lib/apt/lists/*
+
+
+RUN useradd -m -s /bin/bash appuser
+
+
+WORKDIR /app
+
+
+COPY entrypoint.sh /app/
+COPY start.sh /app/
+COPY healthcheck.sh /app/
+COPY app/ /app/app/
+
+
+RUN chmod +x /app/.sh && 
+
+chmod +x /app/app/
+
+
+RUN chown -R appuser:appuser /app
+
+
+USER appuser
+
+
+ENV PORT=8080
+
 
 EXPOSE 8080
 
-CMD ["/start.sh"]
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 
+
+CMD /app/healthcheck.sh
+
+
+ENTRYPOINT ["/app/entrypoint.sh"]
