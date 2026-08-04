@@ -1,0 +1,16 @@
+.git
+.gitignore
+README.md
+
+
+*.log
+*.tmp
+
+
+node_modules
+pycache
+
+
+.cache
+tmp
+backup
