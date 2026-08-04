@@ -6,36 +6,6 @@
   "inbounds": [
 
     {
-      "tag": "VLESS-WS",
-
-      "port": 8081,
-
-      "protocol": "vless",
-
-      "settings": {
-        "clients": [
-          {
-            "id": "dad62834-9005-11f1-8cff-3fef00a2ac2b"
-          }
-        ],
-
-        "decryption": "none"
-      },
-
-      "streamSettings": {
-
-        "network": "ws",
-
-        "wsSettings": {
-
-          "path": "/ws?collectConsent?sessionId=3_cc-session_efb0bceb-56a6-42ca-8acb-403fa7d8933a"
-
-        }
-      }
-    },
-
-
-    {
       "tag": "VLESS-XHTTP",
 
       "port": 8080,
