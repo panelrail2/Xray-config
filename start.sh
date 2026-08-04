@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Xray Starting"
+echo "Starting Xray..."
 
-xray run \
--config /usr/local/etc/xray/config.json
+exec /usr/local/bin/xray run -config /etc/xray/config.json
