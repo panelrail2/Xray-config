@@ -19,7 +19,7 @@
         "network": "xhttp",
         "security": "none",
         "xhttpSettings": {
-          "path": "/api/v1/sync"
+          "path": "/xhttp"
         }
       }
     }
@@ -29,4 +29,3 @@
       "protocol": "freedom"
     }
   ]
-}
