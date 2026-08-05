@@ -1,21 +1,30 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 
 set -e
 
 
-echo "================================"
-echo "Railway Container Starting"
-echo "================================"
+echo "Generating Xray config"
+
+python3 /scripts/generate_config.py
 
 
-export PORT=${PORT:-8080}
+echo "Testing Xray config"
+
+/xray/xray test \
+-config /config/config.json
 
 
-echo "PORT=$PORT"
+echo "Starting Xray"
 
 
-mkdir -p /tmp/app
+/xray/xray run \
+-config /config/config.json &
 
 
-exec /app/start.sh
+
+echo "Starting Web Service"
+
+
+exec gunicorn \
+--bind 0.0.0.0:${PORT} \
+app.app:app
