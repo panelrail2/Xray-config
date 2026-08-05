@@ -1,26 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 
-PORT=${PORT:-8080}
+if pgrep xray > /dev/null
 
+then
 
-if command -v curl >/dev/null 2>&1; then
-
-
-curl -fsS \
-http://127.0.0.1:${PORT}/health \
->/dev/null
-
-exit $?
-
-
+exit 0
 
 else
 
-
-echo "curl not installed"
 exit 1
-
-
 
 fi
