@@ -6,8 +6,14 @@ set -e
 cd /opt/xray-config
 
 
+
+echo "Installing Xray..."
+
 bash scripts/install_xray.sh
 
+
+
+echo "Generating config..."
 
 bash scripts/generate_config.sh
 
