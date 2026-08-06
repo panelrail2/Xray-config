@@ -3,28 +3,18 @@
 set -e
 
 
-echo "Generating Xray config"
-
-python3 /scripts/generate_config.py
+cd /opt/xray-config
 
 
-echo "Testing Xray config"
-
-/xray/xray test \
--config /config/config.json
+bash scripts/install_xray.sh
 
 
-echo "Starting Xray"
+bash scripts/generate_config.sh
 
 
-/xray/xray run \
--config /config/config.json &
-
-
-
-echo "Starting Web Service"
+bash scripts/start_xray.sh
 
 
 exec gunicorn \
---bind 0.0.0.0:${PORT} \
+--bind 0.0.0.0:${PORT:-9000} \
 app.app:app
