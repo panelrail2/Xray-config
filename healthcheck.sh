@@ -1,14 +1,6 @@
 #!/bin/bash
 
 
-if pgrep xray > /dev/null
-
-then
-
-exit 0
-
-else
-
-exit 1
-
-fi
+curl -f \
+http://127.0.0.1:${PORT:-9000}/health \
+|| exit 1
