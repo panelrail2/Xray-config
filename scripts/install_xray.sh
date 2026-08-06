@@ -27,7 +27,7 @@ cd /tmp
 
 wget -q \
 https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip \
--o xray.zip
+-O xray.zip
 
 
 
