@@ -1,150 +1,96 @@
-# Xray-config
-Make ws, xhttp, wss, xhttp tls config in railway
-Railway Docker Project
+# Railway Xray XHTTP TLS
 
 
-این پروژه یک قالب استاندارد برای اجرای یک سرویس Docker روی Railway است.
+Railway deployment for Xray-core.
 
+Architecture:
 
-ساختار پروژه
 
+Client
 
-project/
+↓
 
-├── Dockerfile
-├── entrypoint.sh
-├── start.sh
-├── healthcheck.sh
-├── .dockerignore
-├── README.md
+Railway TCP Proxy :443
 
-└── app/
-    └── app.sh
+↓
 
+Nginx TLS Reverse Proxy
 
+↓
 
-Deploy در Railway
+Xray VLESS XHTTP
 
 
+## Protocol
 
+VLESS XHTTP TLS
 
-پروژه را در GitHub قرار دهید.
 
+## Ports
 
-وارد Railway شوید.
 
+Public:
 
-گزینه:
+443
 
 
+Internal:
 
+8443 Xray
 
-New Project
+9000 Health API
 
 
 
-را انتخاب کنید.
+## Environment Variables
 
 
+UUID
 
+DOMAIN
 
-گزینه:
+XHTTP_PATH=/xhttp
 
 
 
+## Deployment
 
-Deploy from GitHub Repo
 
+1. Push repository to GitHub
 
+2. Connect repository to Railway
 
-را بزنید.
+3. Add environment variables
 
+4. Enable TCP Proxy
 
+5. Deploy
 
 
-Repository را انتخاب کنید.
 
+## Client Configuration
 
 
+Protocol:
 
-Railway به صورت خودکار Dockerfile را شناسایی می‌کند.
+VLESS
 
 
+Transport:
 
-Variables
+XHTTP
 
 
-Railway مقدار PORT را هنگام اجرا تنظیم می‌کند.
+Security:
 
+TLS
 
-برای تست می‌توان مقدار پیش‌فرض تعریف کرد:
 
+Port:
 
-PORT=8080
+443
 
 
+Path:
 
-
-بررسی Logs
-
-
-از مسیر:
-
-
-Service
- |
-Deployments
- |
-Logs
-
-
-
-می‌توان وضعیت اجرا را بررسی کرد.
-
-
-خروجی سالم:
-
-
-Railway Container Starting
-PORT=8080
-Application running
-
-
-
-
-Health Check
-
-
-Health Check هر ۳۰ ثانیه اجرا می‌شود.
-
-
-مسیر بررسی:
-
-
-/health
-
-
-
-باید پاسخ موفق HTTP دریافت کند.
-
-
-
-نکات مهم
-
-
-
-
-داده‌های دائمی داخل Container ذخیره نشوند.
-
-
-تنظیمات قابل تغییر از Environment Variables خوانده شوند.
-
-
-برنامه باید Process اصلی Container باشد.
-
-
-تمام خطاها باید در stdout نمایش داده شوند.
-
-
-
-
+/xhttp
