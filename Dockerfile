@@ -1,21 +1,23 @@
 FROM ubuntu:24.04
 
-
 ENV DEBIAN_FRONTEND=noninteractive
 
+WORKDIR /opt/xray-config
 
-RUN apt-get update && \
-    apt-get install -y \
+
+RUN apt-get update && apt-get install -y \
     curl \
+    wget \
     unzip \
-    ca-certificates \
+    openssl \
+    nginx \
+    gettext-base \
     python3 \
     python3-pip \
+    ca-certificates \
+    bash \
     procps \
     && rm -rf /var/lib/apt/lists/*
-
-
-WORKDIR /app
 
 
 COPY requirements.txt .
@@ -26,41 +28,32 @@ RUN pip3 install \
     -r requirements.txt
 
 
-COPY app/ /app/app/
-
-COPY scripts/ /scripts/
-
-COPY config/ /config/
-
-
-COPY entrypoint.sh /
-
-COPY healthcheck.sh /
+COPY . .
 
 
 RUN chmod +x \
-    /entrypoint.sh \
-    /healthcheck.sh \
-    /scripts/*.sh
+    entrypoint.sh \
+    healthcheck.sh \
+    scripts/*.sh
 
 
-RUN mkdir /xray
+RUN mkdir -p \
+    /etc/xray/cert \
+    /var/www/html
 
 
-RUN curl -L \
-    -o /tmp/xray.zip \
-    https://github.com/XTLS/Xray-core/releases/download/v26.6.1/Xray-linux-64.zip \
-    && unzip /tmp/xray.zip -d /xray \
-    && chmod +x /xray/xray
+RUN rm -f /etc/nginx/sites-enabled/default
 
 
-EXPOSE 8080
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 
-HEALTHCHECK \
-    --interval=30s \
-    --timeout=5s \
-    CMD /healthcheck.sh
+RUN echo '<html><body><h1>Welcome</h1></body></html>' \
+> /var/www/html/index.html
 
 
-ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 443
+EXPOSE 9000
+
+
+ENTRYPOINT ["/opt/xray-config/entrypoint.sh"]
