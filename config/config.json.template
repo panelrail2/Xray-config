@@ -1,0 +1,55 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+
+  "inbounds": [
+
+    {
+      "listen": "127.0.0.1",
+
+      "port": 8443,
+
+      "protocol": "vless",
+
+      "settings": {
+
+        "clients": [
+          {
+            "id": "${UUID}"
+          }
+        ],
+
+        "decryption": "none"
+      },
+
+
+      "streamSettings": {
+
+        "network": "xhttp",
+
+        "security": "none",
+
+        "xhttpSettings": {
+
+          "path": "${XHTTP_PATH}",
+
+          "mode": "auto"
+
+        }
+
+      }
+
+    }
+
+  ],
+
+
+  "outbounds": [
+
+    {
+      "protocol": "freedom"
+    }
+
+  ]
+}
