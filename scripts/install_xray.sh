@@ -11,13 +11,14 @@ then
 
     echo "Xray already installed"
 
+    xray version
+
     exit 0
 
 fi
 
 
-
-echo "Installing Xray ${XRAY_VERSION}"
+echo "Installing Xray-core ${XRAY_VERSION}"
 
 
 
@@ -25,29 +26,37 @@ cd /tmp
 
 
 
+ARCHIVE="Xray-linux-64.zip"
+
+
+
+DOWNLOAD_URL="https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/${ARCHIVE}"
+
+
+
 wget -q \
-https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip \
--O xray.zip
+"${DOWNLOAD_URL}" \
+-O "${ARCHIVE}"
 
 
 
-mkdir -p /usr/local/bin/xray
+mkdir -p /usr/local/share/xray
 
 
 
-unzip -o xray.zip \
--d /usr/local/bin/xray
+unzip -o \
+"${ARCHIVE}" \
+-d /usr/local/share/xray
 
 
 
-ln -sf \
-/usr/local/bin/xray/xray \
+install -m 755 \
+/usr/local/share/xray/xray \
 /usr/local/bin/xray
 
 
 
-chmod +x /usr/local/bin/xray/xray
+echo "Xray installed:"
 
 
-
-echo "Xray installation completed"
+xray version
